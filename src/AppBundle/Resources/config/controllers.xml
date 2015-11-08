@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.controller.dashboard" class="AppBundle\Controller\DashboardController">
+            <argument type="service" id="app.repository.profile" />
+        </service>
+
+        <service id="profiler.template_manager" class="Symfony\Bundle\WebProfilerBundle\Profiler\TemplateManager">
+            <argument type="service" id="profiler" />
+            <argument type="service" id="twig" />
+            <argument>%data_collector.templates%</argument>
+        </service>
+
+        <service id="app.controller.profile" class="AppBundle\Controller\ProfileController">
+            <argument type="service" id="app.repository.profile" />
+            <argument type="service" id="profiler.template_manager" />
+            <argument type="service" id="twig" />
+        </service>
+    </services>
+</container>

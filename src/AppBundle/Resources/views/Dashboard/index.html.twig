@@ -1,0 +1,11 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block content %}
+<h2>Profiles</h2>
+{% for profile in profiles %}
+    {% set status_code = ('request' in profile.collectors|keys) ? profile.getcollector('request').statuscode|default(0) : 0 %}
+
+    <li>{{ status_code }} - {{ profile.method }} - {{ profile.url }} - <a href="{{ path('profile', {'token': profile.token}) }}">Show</a></li>
+{% else %}
+<p>No profile found.</p>
+{% endfor %}
+{% endblock %}

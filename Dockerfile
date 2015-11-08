@@ -9,7 +9,6 @@ RUN requirements="libpq-dev zlib1g-dev libicu-dev git" \
     && docker-php-ext-install zip \
     && docker-php-ext-install opcache \
     && docker-php-ext-install bcmath \
-    && pecl install apcu-beta && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini \
     && apt-get purge --auto-remove -y
 
 # Apache configuration
@@ -28,8 +27,8 @@ ADD . /app
 WORKDIR /app
 
 # Remove cache and logs if some and fixes permissions
-RUN ((rm -rf app/cache/* && rm -rf app/logs/*) || true) \
-    && chown www-data . app/cache app/logs
+RUN ((rm -rf var/cache/* && rm -rf var/logs/*) || true) \
+    && chown www-data . var/cache var/logs
 
 # Install dependencies
 RUN composer install -o
