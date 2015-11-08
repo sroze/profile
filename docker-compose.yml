@@ -1,0 +1,21 @@
+app:
+  build: .
+  volumes:
+    - .:/app
+  links:
+    - database
+  labels:
+    com.continuouspipe.image-name: sroze/profile
+    com.continuouspipe.visibility: public
+  expose:
+    - 80
+
+database:
+  image: postgres
+  environment:
+    POSTGRES_USER: profile
+    POSTGRES_PASSWORD: profile
+  labels:
+    com.continuouspipe.update: lock
+  expose:
+    - 5432
